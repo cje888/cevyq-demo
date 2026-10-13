@@ -5,107 +5,143 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mara Vale | Free Content</title>
 <meta name="description" content="Join the list for free content and early drops.">
-<meta name="theme-color" content="#14110f">
+<meta name="theme-color" content="#120e0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#14110f; --card:#1f1a17; --ink:#f6efe9; --muted:#b8aca3;
-    --accent:#e8a87c; --accent-ink:#1a120c; --line:#3a312b; --ok:#9fd8a8;
-    --r:18px;
+    --bg:#120e0c; --card:rgba(34,27,23,.72); --ink:#f8f1ea; --muted:#bfb2a8;
+    --accent:#eaa77a; --accent2:#f3cba6; --rose:#d97a8b; --accent-ink:#1d120b; --line:rgba(255,255,255,.1); --ok:#a6dcae;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
+  html,body{min-height:100%}
   body{
     background:var(--bg);color:var(--ink);
-    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
-    min-height:100dvh;display:flex;justify-content:center;
-    padding:max(24px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom));
+    font:16px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;min-height:100dvh;display:flex;justify-content:center;overflow-x:hidden;
+    padding:max(28px,env(safe-area-inset-top)) 16px max(28px,env(safe-area-inset-bottom));
   }
-  main{width:100%;max-width:420px;display:flex;flex-direction:column}
-  .view{display:none;flex-direction:column;gap:20px;animation:in .25s ease}
+  .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .bg i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:drift 18s ease-in-out infinite alternate}
+  .bg i:nth-child(1){width:360px;height:360px;background:var(--accent);top:-120px;left:-100px}
+  .bg i:nth-child(2){width:300px;height:300px;background:var(--rose);bottom:-80px;right:-90px;animation-delay:-6s}
+  .bg i:nth-child(3){width:220px;height:220px;background:#8a5a3c;top:45%;left:55%;animation-delay:-12s;opacity:.4}
+  @keyframes drift{to{transform:translate(40px,30px) scale(1.12)}}
+  .bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,var(--bg) 85%)}
+
+  main{position:relative;z-index:1;width:100%;max-width:430px;display:flex;flex-direction:column}
+  .view{display:none;flex-direction:column;gap:20px;animation:in .35s ease}
   .view.active{display:flex}
-  @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .avatar{
-    width:96px;height:96px;border-radius:50%;margin:8px auto 0;
-    background:radial-gradient(circle at 30% 30%,#f3c9a8,#b86b45 60%,#5a2e1c);
-    border:3px solid var(--accent);
-  }
-  h1{font-size:1.6rem;line-height:1.2;text-align:center;letter-spacing:-.01em}
-  .sub{color:var(--muted);text-align:center}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
-  .perks{list-style:none;display:grid;gap:10px;margin-bottom:18px}
-  .perks li{display:flex;gap:10px;align-items:flex-start}
-  .perks li::before{content:"";flex:0 0 8px;height:8px;margin-top:8px;border-radius:50%;background:var(--accent)}
-  label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px}
+  @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .pill{align-self:center;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);border:1px solid rgba(234,167,122,.4);background:rgba(234,167,122,.08);padding:5px 10px;border-radius:999px}
+  .profile{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+  .ring{width:112px;height:112px;border-radius:50%;padding:3px;background:conic-gradient(from 200deg,var(--accent),var(--rose),var(--accent2),var(--accent));box-shadow:0 18px 40px rgba(234,167,122,.25)}
+  .avatar{width:100%;height:100%;border-radius:50%;border:4px solid var(--bg);background:radial-gradient(circle at 35% 30%,#f6d3b4,#c47a52 55%,#5c2f1d);display:grid;place-items:center;font-family:"DM Serif Display",Georgia,serif;font-size:2.2rem;color:#fff6ee}
+  h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:2.1rem;line-height:1.1;letter-spacing:-.01em}
+  h1 em{color:var(--accent2)}
+  .name{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--muted);font-size:.95rem}
+  .name svg{color:var(--accent)}
+  .sub{color:var(--muted);max-width:30ch}
+
+  .card{background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+  .perks{list-style:none;display:grid;gap:12px;margin-bottom:20px}
+  .perks li{display:flex;gap:12px;align-items:center;font-size:.96rem}
+  .perks .ic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:rgba(234,167,122,.14);color:var(--accent2)}
+  label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:6px;font-weight:500}
   input[type=email]{
-    width:100%;font:inherit;font-size:16px; /* 16px stops iOS zoom in in-app browsers */
-    padding:14px 16px;border-radius:12px;border:1px solid var(--line);
-    background:#120f0d;color:var(--ink);outline:none;
+    width:100%;font:inherit;font-size:16px;padding:15px 16px;border-radius:14px;
+    border:1px solid var(--line);background:rgba(0,0,0,.35);color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s
   }
-  input[type=email]:focus{border-color:var(--accent)}
+  input[type=email]::placeholder{color:#7d7068}
+  input[type=email]:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(234,167,122,.16)}
   .btn{
-    display:block;width:100%;text-align:center;text-decoration:none;cursor:pointer;
-    font:inherit;font-weight:700;padding:15px 16px;border-radius:12px;border:0;
-    background:var(--accent);color:var(--accent-ink);margin-top:12px;
+    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;text-decoration:none;cursor:pointer;
+    font:inherit;font-weight:700;padding:16px;border-radius:14px;border:0;margin-top:12px;
+    background:linear-gradient(100deg,var(--accent),var(--accent2));color:var(--accent-ink);
+    box-shadow:0 12px 28px rgba(234,167,122,.3);transition:transform .15s
   }
-  .btn:active{transform:scale(.99)}
+  .btn:active{transform:scale(.98)}
   .btn[disabled]{opacity:.6}
-  .skip{
-    background:none;border:0;color:var(--muted);font:inherit;text-decoration:underline;
-    cursor:pointer;padding:8px;align-self:center;
-  }
-  .fine{font-size:.78rem;color:var(--muted);text-align:center;margin-top:10px}
+  .skip{background:none;border:0;color:var(--muted);font:inherit;font-size:.92rem;cursor:pointer;padding:8px;align-self:center;display:inline-flex;align-items:center;gap:6px}
+  .skip:hover{color:var(--ink)}
+  .fine{font-size:.76rem;color:#93877e;text-align:center;margin-top:12px}
   .err{color:#ff9b8a;font-size:.85rem;margin-top:8px;min-height:1em}
-  .ok{color:var(--ok);text-align:center;font-weight:600}
+  .ok{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--ok);font-weight:600;background:rgba(166,220,174,.1);border:1px solid rgba(166,220,174,.25);border-radius:12px;padding:10px}
+
   .links{display:grid;gap:12px}
   .link{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:16px 18px;border-radius:14px;text-decoration:none;color:var(--ink);
-    background:var(--card);border:1px solid var(--line);font-weight:600;
+    display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:18px;text-decoration:none;color:var(--ink);
+    background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);font-weight:600;
+    transition:transform .15s,border-color .15s
   }
-  .link span{color:var(--muted);font-weight:400;font-size:.85rem}
-  .link.feature{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-  .link.feature span{color:var(--accent-ink);opacity:.75}
-  footer{margin-top:auto;padding-top:28px;text-align:center;color:var(--muted);font-size:.75rem}
+  .link:hover{transform:translateY(-2px);border-color:rgba(234,167,122,.45)}
+  .link .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.06);color:var(--accent2)}
+  .link .t{flex:1;display:flex;flex-direction:column;line-height:1.25}
+  .link .t span{color:var(--muted);font-weight:400;font-size:.84rem}
+  .link .go{color:var(--muted)}
+  .link.feature{background:linear-gradient(100deg,var(--accent),var(--accent2));color:var(--accent-ink);border-color:transparent;box-shadow:0 14px 30px rgba(234,167,122,.28)}
+  .link.feature .ic{background:rgba(29,18,11,.12);color:var(--accent-ink)}
+  .link.feature .t span,.link.feature .go{color:var(--accent-ink);opacity:.7}
+  .badge-new{font-size:.66rem;font-weight:800;letter-spacing:.1em;background:var(--accent-ink);color:var(--accent2);padding:3px 7px;border-radius:6px;margin-left:8px;vertical-align:middle}
+
+  footer{margin-top:auto;padding-top:32px;text-align:center;color:#8b7f76;font-size:.74rem}
+  @media(prefers-reduced-motion:reduce){.bg i{animation:none}.view{animation:none}}
 </style>
 </head>
 <body>
+<div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
 <main>
 
   <!-- VIEW 1: OPT-IN -->
   <section class="view active" id="optin" aria-labelledby="h-optin">
-    <div class="avatar" role="img" aria-label="Profile photo"></div>
-    <h1 id="h-optin">Get my free content pack</h1>
-    <p class="sub">Drop your email and it lands in your inbox in under a minute.</p>
+    <span class="pill">Free for subscribers</span>
+    <div class="profile">
+      <div class="ring"><div class="avatar" role="img" aria-label="Profile photo">MV</div></div>
+      <span class="name">Mara Vale
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 2.2 3.2-.4.9 3.1 2.9 1.5-1 3.1 1 3.1-2.9 1.5-.9 3.1-3.2-.4L12 22l-2.4-2.2-3.2.4-.9-3.1-2.9-1.5 1-3.1-1-3.1 2.9-1.5.9-3.1 3.2.4z"/><path d="M8.5 12.2l2.3 2.3 4.7-4.7" stroke="#120e0c" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <h1 id="h-optin">Get my <em>free</em> content pack</h1>
+      <p class="sub">Drop your email and it lands in your inbox in under a minute.</p>
+    </div>
 
     <form class="card" id="optin-form" novalidate>
       <ul class="perks">
-        <li>Free exclusive set, sent instantly</li>
-        <li>First to hear about new drops</li>
-        <li>No spam. Unsubscribe in one tap</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg></span>Free exclusive set, sent instantly</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>First to hear about new drops</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>No spam. Unsubscribe in one tap</li>
       </ul>
       <label for="email">Email address</label>
       <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
-      <!-- honeypot: bots fill it, humans never see it -->
       <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
       <p class="err" id="err" role="alert"></p>
-      <button class="btn" type="submit" id="submit">Send it to me</button>
+      <button class="btn" type="submit" id="submit">Send it to me
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
       <p class="fine">18+ only. By joining you agree to receive emails. Unsubscribe any time.</p>
     </form>
 
-    <button class="skip" type="button" id="skip" data-track="optin-skip">No thanks, take me to the socials</button>
+    <button class="skip" type="button" id="skip">No thanks, take me to the socials
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
   </section>
 
   <!-- VIEW 2: SOCIALS -->
   <section class="view" id="socials" aria-labelledby="h-socials">
-    <div class="avatar" role="img" aria-label="Profile photo"></div>
-    <h1 id="h-socials">Mara Vale</h1>
-    <p class="ok" id="thanks" hidden>You're in. Check your inbox.</p>
-    <p class="sub">Find me everywhere</p>
+    <div class="profile">
+      <div class="ring"><div class="avatar" role="img" aria-label="Profile photo">MV</div></div>
+      <h1 id="h-socials">Mara Vale</h1>
+      <p class="sub">Find me everywhere</p>
+    </div>
+    <p class="ok" id="thanks" hidden>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      You're in. Check your inbox.
+    </p>
     <nav class="links" id="links" aria-label="Social links"></nav>
   </section>
 
-  <footer>Demo build by CEVYQ Group. Fictional creator.</footer>
+  <footer>Sample page built by CEVYQ Group. Fictional creator.</footer>
 </main>
 
 <script>
@@ -113,23 +149,27 @@
    EDIT HERE: everything the client changes lives in CONFIG.
    ========================================================= */
 const CONFIG = {
-  // Where the email goes. Swap for the email platform's form endpoint.
-  // Empty string = demo mode (no data is sent anywhere).
+  // Where the email goes. Empty string = demo mode (nothing is sent).
   formEndpoint: "",
   emailField: "email",
 
   links: [
-    { label: "Exclusive page", note: "New",      url: "https://example.com/exclusive", feature: true },
-    { label: "Instagram",      note: "@maravale", url: "https://example.com/instagram" },
-    { label: "TikTok",         note: "@maravale", url: "https://example.com/tiktok" },
-    { label: "X",              note: "@maravale", url: "https://example.com/x" },
-    { label: "YouTube",        note: "Vlogs",     url: "https://example.com/youtube" }
+    { label: "Exclusive page", note: "Members only",     url: "https://example.com/exclusive", icon: "star",   feature: true, isNew: true },
+    { label: "Instagram",      note: "@maravale",        url: "https://example.com/instagram", icon: "camera" },
+    { label: "TikTok",         note: "@maravale",        url: "https://example.com/tiktok",    icon: "music" },
+    { label: "X",              note: "@maravale",        url: "https://example.com/x",         icon: "chat" },
+    { label: "YouTube",        note: "Weekly vlogs",     url: "https://example.com/youtube",   icon: "play" }
   ]
 };
 
-/* ---------- click tracking ----------
-   Works with Umami or Plausible if either script is added to <head>.
-   Falls back to the console so it never breaks the page. */
+const ICONS = {
+  star:   '<path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/>',
+  camera: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/>',
+  music:  '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+  chat:   '<path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/>',
+  play:   '<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z"/>'
+};
+
 function track(name, data){
   try{
     if (window.umami && umami.track) umami.track(name, data);
@@ -138,47 +178,51 @@ function track(name, data){
   }catch(e){}
 }
 
-/* ---------- views ---------- */
 function show(id){
   document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === id));
   window.scrollTo(0,0);
   track("view-" + id);
 }
 
-/* ---------- build links from config ---------- */
 const nav = document.getElementById("links");
 CONFIG.links.forEach(l => {
   const a = document.createElement("a");
   a.className = "link" + (l.feature ? " feature" : "");
   a.href = l.url;
   a.rel = "noopener";
-  a.innerHTML = `${l.label}<span>${l.note || ""}</span>`;
+  const svg = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[l.icon] || ICONS.star) + '</svg>';
+  const label = document.createElement("span"); label.className = "t";
+  label.textContent = l.label;
+  if (l.isNew){ const b = document.createElement("i"); b.className = "badge-new"; b.textContent = "NEW"; b.style.fontStyle = "normal"; label.appendChild(b); }
+  const note = document.createElement("span"); note.textContent = l.note || ""; label.appendChild(note);
+  a.innerHTML = '<span class="ic">' + svg + '</span>';
+  a.appendChild(label);
+  a.insertAdjacentHTML("beforeend", '<svg class="go" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>');
   a.addEventListener("click", () => track("link-click", { link: l.label }));
   nav.appendChild(a);
 });
 
-/* ---------- skip ---------- */
 document.getElementById("skip").addEventListener("click", () => {
   track("optin-skip");
   show("socials");
 });
 
-/* ---------- opt-in submit ---------- */
 const form = document.getElementById("optin-form");
 const err = document.getElementById("err");
 const btn = document.getElementById("submit");
+const btnHTML = btn.innerHTML;
 
 form.addEventListener("submit", async e => {
   e.preventDefault();
   err.textContent = "";
   const email = form.email.value.trim();
-  if (form.company.value) return;                       // bot
+  if (form.company.value) return;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
     err.textContent = "Please enter a valid email.";
     form.email.focus();
     return;
   }
-  btn.disabled = true; btn.textContent = "Sending…";
+  btn.disabled = true; btn.textContent = "Sending...";
   try{
     if (CONFIG.formEndpoint){
       const body = new FormData();
@@ -186,7 +230,7 @@ form.addEventListener("submit", async e => {
       const res = await fetch(CONFIG.formEndpoint, { method:"POST", body, mode:"cors" });
       if (!res.ok) throw new Error(res.status);
     } else {
-      await new Promise(r => setTimeout(r, 500));       // demo mode
+      await new Promise(r => setTimeout(r, 500));
     }
     track("optin-submit");
     document.getElementById("thanks").hidden = false;
@@ -195,7 +239,7 @@ form.addEventListener("submit", async e => {
     err.textContent = "Something went wrong. Please try again.";
     track("optin-error");
   }finally{
-    btn.disabled = false; btn.textContent = "Send it to me";
+    btn.disabled = false; btn.innerHTML = btnHTML;
   }
 });
 
