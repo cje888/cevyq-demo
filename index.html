@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mara Vale | Free Content</title>
+<meta name="description" content="Join the list for free content and early drops.">
+<meta name="theme-color" content="#14110f">
+<style>
+  :root{
+    --bg:#14110f; --card:#1f1a17; --ink:#f6efe9; --muted:#b8aca3;
+    --accent:#e8a87c; --accent-ink:#1a120c; --line:#3a312b; --ok:#9fd8a8;
+    --r:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg);color:var(--ink);
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100dvh;display:flex;justify-content:center;
+    padding:max(24px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom));
+  }
+  main{width:100%;max-width:420px;display:flex;flex-direction:column}
+  .view{display:none;flex-direction:column;gap:20px;animation:in .25s ease}
+  .view.active{display:flex}
+  @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .avatar{
+    width:96px;height:96px;border-radius:50%;margin:8px auto 0;
+    background:radial-gradient(circle at 30% 30%,#f3c9a8,#b86b45 60%,#5a2e1c);
+    border:3px solid var(--accent);
+  }
+  h1{font-size:1.6rem;line-height:1.2;text-align:center;letter-spacing:-.01em}
+  .sub{color:var(--muted);text-align:center}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+  .perks{list-style:none;display:grid;gap:10px;margin-bottom:18px}
+  .perks li{display:flex;gap:10px;align-items:flex-start}
+  .perks li::before{content:"";flex:0 0 8px;height:8px;margin-top:8px;border-radius:50%;background:var(--accent)}
+  label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px}
+  input[type=email]{
+    width:100%;font:inherit;font-size:16px; /* 16px stops iOS zoom in in-app browsers */
+    padding:14px 16px;border-radius:12px;border:1px solid var(--line);
+    background:#120f0d;color:var(--ink);outline:none;
+  }
+  input[type=email]:focus{border-color:var(--accent)}
+  .btn{
+    display:block;width:100%;text-align:center;text-decoration:none;cursor:pointer;
+    font:inherit;font-weight:700;padding:15px 16px;border-radius:12px;border:0;
+    background:var(--accent);color:var(--accent-ink);margin-top:12px;
+  }
+  .btn:active{transform:scale(.99)}
+  .btn[disabled]{opacity:.6}
+  .skip{
+    background:none;border:0;color:var(--muted);font:inherit;text-decoration:underline;
+    cursor:pointer;padding:8px;align-self:center;
+  }
+  .fine{font-size:.78rem;color:var(--muted);text-align:center;margin-top:10px}
+  .err{color:#ff9b8a;font-size:.85rem;margin-top:8px;min-height:1em}
+  .ok{color:var(--ok);text-align:center;font-weight:600}
+  .links{display:grid;gap:12px}
+  .link{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 18px;border-radius:14px;text-decoration:none;color:var(--ink);
+    background:var(--card);border:1px solid var(--line);font-weight:600;
+  }
+  .link span{color:var(--muted);font-weight:400;font-size:.85rem}
+  .link.feature{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .link.feature span{color:var(--accent-ink);opacity:.75}
+  footer{margin-top:auto;padding-top:28px;text-align:center;color:var(--muted);font-size:.75rem}
+</style>
+</head>
+<body>
+<main>
+
+  <!-- VIEW 1: OPT-IN -->
+  <section class="view active" id="optin" aria-labelledby="h-optin">
+    <div class="avatar" role="img" aria-label="Profile photo"></div>
+    <h1 id="h-optin">Get my free content pack</h1>
+    <p class="sub">Drop your email and it lands in your inbox in under a minute.</p>
+
+    <form class="card" id="optin-form" novalidate>
+      <ul class="perks">
+        <li>Free exclusive set, sent instantly</li>
+        <li>First to hear about new drops</li>
+        <li>No spam. Unsubscribe in one tap</li>
+      </ul>
+      <label for="email">Email address</label>
+      <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+      <!-- honeypot: bots fill it, humans never see it -->
+      <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn" type="submit" id="submit">Send it to me</button>
+      <p class="fine">18+ only. By joining you agree to receive emails. Unsubscribe any time.</p>
+    </form>
+
+    <button class="skip" type="button" id="skip" data-track="optin-skip">No thanks, take me to the socials</button>
+  </section>
+
+  <!-- VIEW 2: SOCIALS -->
+  <section class="view" id="socials" aria-labelledby="h-socials">
+    <div class="avatar" role="img" aria-label="Profile photo"></div>
+    <h1 id="h-socials">Mara Vale</h1>
+    <p class="ok" id="thanks" hidden>You're in. Check your inbox.</p>
+    <p class="sub">Find me everywhere</p>
+    <nav class="links" id="links" aria-label="Social links"></nav>
+  </section>
+
+  <footer>Demo build by CEVYQ Group. Fictional creator.</footer>
+</main>
+
+<script>
+/* =========================================================
+   EDIT HERE: everything the client changes lives in CONFIG.
+   ========================================================= */
+const CONFIG = {
+  // Where the email goes. Swap for the email platform's form endpoint.
+  // Empty string = demo mode (no data is sent anywhere).
+  formEndpoint: "",
+  emailField: "email",
+
+  links: [
+    { label: "Exclusive page", note: "New",      url: "https://example.com/exclusive", feature: true },
+    { label: "Instagram",      note: "@maravale", url: "https://example.com/instagram" },
+    { label: "TikTok",         note: "@maravale", url: "https://example.com/tiktok" },
+    { label: "X",              note: "@maravale", url: "https://example.com/x" },
+    { label: "YouTube",        note: "Vlogs",     url: "https://example.com/youtube" }
+  ]
+};
+
+/* ---------- click tracking ----------
+   Works with Umami or Plausible if either script is added to <head>.
+   Falls back to the console so it never breaks the page. */
+function track(name, data){
+  try{
+    if (window.umami && umami.track) umami.track(name, data);
+    else if (window.plausible) plausible(name, { props: data });
+    else console.log("[track]", name, data || "");
+  }catch(e){}
+}
+
+/* ---------- views ---------- */
+function show(id){
+  document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === id));
+  window.scrollTo(0,0);
+  track("view-" + id);
+}
+
+/* ---------- build links from config ---------- */
+const nav = document.getElementById("links");
+CONFIG.links.forEach(l => {
+  const a = document.createElement("a");
+  a.className = "link" + (l.feature ? " feature" : "");
+  a.href = l.url;
+  a.rel = "noopener";
+  a.innerHTML = `${l.label}<span>${l.note || ""}</span>`;
+  a.addEventListener("click", () => track("link-click", { link: l.label }));
+  nav.appendChild(a);
+});
+
+/* ---------- skip ---------- */
+document.getElementById("skip").addEventListener("click", () => {
+  track("optin-skip");
+  show("socials");
+});
+
+/* ---------- opt-in submit ---------- */
+const form = document.getElementById("optin-form");
+const err = document.getElementById("err");
+const btn = document.getElementById("submit");
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  err.textContent = "";
+  const email = form.email.value.trim();
+  if (form.company.value) return;                       // bot
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
+    err.textContent = "Please enter a valid email.";
+    form.email.focus();
+    return;
+  }
+  btn.disabled = true; btn.textContent = "Sending…";
+  try{
+    if (CONFIG.formEndpoint){
+      const body = new FormData();
+      body.append(CONFIG.emailField, email);
+      const res = await fetch(CONFIG.formEndpoint, { method:"POST", body, mode:"cors" });
+      if (!res.ok) throw new Error(res.status);
+    } else {
+      await new Promise(r => setTimeout(r, 500));       // demo mode
+    }
+    track("optin-submit");
+    document.getElementById("thanks").hidden = false;
+    show("socials");
+  }catch(e2){
+    err.textContent = "Something went wrong. Please try again.";
+    track("optin-error");
+  }finally{
+    btn.disabled = false; btn.textContent = "Send it to me";
+  }
+});
+
+track("view-optin");
+</script>
+</body>
+</html>
